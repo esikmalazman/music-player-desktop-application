@@ -64,7 +64,7 @@ public class musicPlayer {
 		frmGmiPlayer.getContentPane().setLayout(null);
 		
 		JButton btnStart = new JButton("Start");
-		btnStart.setIcon(new ImageIcon("/Users/esikmalazman/eclipse-workspace/PBL 1 JAVA (Audio Player)/icon/play-button.png"));
+		btnStart.setIcon(new ImageIcon("/Users/esikmalazman/Desktop/Development/JAVA/Audio Player(PBL1  JAVA)/icon/play-button.png"));
 		btnStart.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		btnStart.setBackground(new Color(255, 127, 80));
 		btnStart.addActionListener(new ActionListener() {
@@ -103,7 +103,7 @@ public class musicPlayer {
 		}
 		
 		JButton btnOpen = new JButton(" Open");
-		btnOpen.setIcon(new ImageIcon("/Users/esikmalazman/eclipse-workspace/PBL 1 JAVA (Audio Player)/icon/folder.png"));
+		btnOpen.setIcon(new ImageIcon("/Users/esikmalazman/Desktop/Development/JAVA/Audio Player(PBL1  JAVA)/icon/folder.png"));
 		btnOpen.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
 		btnOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
