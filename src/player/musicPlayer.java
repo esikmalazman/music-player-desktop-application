@@ -2,6 +2,7 @@ package player;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -13,17 +14,24 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
-
+import javax.swing.DefaultButtonModel;
 public class musicPlayer {
 
 	private JFrame frmGmiPlayer;
 	private JTextField txtSongPath;
 	private String songFile;
+	private String fileName;
+	private String play;
+	private static Player a; // make object public //https://stackoverflow.com/questions/24379298/can-a-object-be-private-and-public
+	JFileChooser fc = new JFileChooser(); // add files chooser/selector f(x)
+	private JButton btnStop;
+
 	/**
 	 * Launch the application.
 	 */
@@ -63,24 +71,44 @@ public class musicPlayer {
 		frmGmiPlayer.setLocationRelativeTo(null); //set app in centre when opens
 		frmGmiPlayer.getContentPane().setLayout(null);
 		
-		JButton btnStart = new JButton("Start");
+		JButton btnStart = new JButton();
+		btnStart.setText("Start");
+		btnStart.setForeground(new Color(0, 0, 0));
 		btnStart.setIcon(new ImageIcon("/Users/esikmalazman/Desktop/Development/JAVA/Audio Player(PBL1  JAVA)/icon/play-button.png"));
 		btnStart.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		btnStart.setBackground(new Color(255, 127, 80));
+		btnStart.setBackground(Color.WHITE);
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Player a = new Player(new FileInputStream(songFile));
-					new Thread() { //to prevent GUI freeze while play music
+					
+					 a = new Player(new FileInputStream(songFile));
+				
+					new Thread() {
 						public void run(){
 							try {
 								a.play();
+								
+//								if(btnStart.isEnabled()) {
+//									btnStart.setText("Stop");
+//									btnStart.setIcon(new ImageIcon("/Users/esikmalazman/Desktop/Development/JAVA/Audio Player(PBL1  JAVA)/icon/stop.png"));
+//									if(btnStart.getModel().isPressed()) {
+//										a.close();
+//									}
+//									
+//									
+//									
+//								}
+								
+
 							} catch (JavaLayerException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							}
+							}  
 						}
 					}.start();
+					
+					
+					
 					
 				}catch(Exception e2){
 					e2.printStackTrace();
@@ -88,14 +116,13 @@ public class musicPlayer {
 				
 			}
 		});
-		btnStart.setBounds(170, 166, 117, 29);
+		btnStart.setBounds(18, 194, 204, 29);
 		frmGmiPlayer.getContentPane().add(btnStart);
 		
 		txtSongPath = new JTextField();
 		txtSongPath.setFont(new Font("Helvetica Neue", Font.PLAIN, 13));
-		txtSongPath.setEditable(false);
 		txtSongPath.setText("Song Path");
-		txtSongPath.setBounds(73, 87, 200, 26);
+		txtSongPath.setBounds(18, 84, 299, 26);
 		frmGmiPlayer.getContentPane().add(txtSongPath);
 		txtSongPath.setColumns(10);
 		if(txtSongPath.equals(FileInputStream(songFile))) {
@@ -108,23 +135,31 @@ public class musicPlayer {
 		btnOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					JFileChooser fc = new JFileChooser(); // add files chooser/selector f(x)
 					fc.setDialogTitle("Choose your songs "); //title of window after btnOpen
 					fc.showOpenDialog(null);
 					songFile = fc.getSelectedFile().toString();
-					String name =("Files "+songFile+" selected");
-					System.out.println(name);
-					
-					
-				}
+					fileName =("Files "+songFile+" selected");
+					txtSongPath.setText(songFile);
+					System.out.println(fileName);
+					}
 				catch(Exception e1){
 					e1.printStackTrace();
 					
 				}
 			}
 		});
-		btnOpen.setBounds(299, 87, 117, 29);
+		btnOpen.setBounds(327, 83, 117, 29);
 		frmGmiPlayer.getContentPane().add(btnOpen);
+		
+		btnStop = new JButton("Stop");
+		btnStop.setIcon(new ImageIcon("/Users/esikmalazman/Desktop/Development/JAVA/Audio Player(PBL1  JAVA)/icon/stop.png"));
+		btnStop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				a.close();
+			}
+		});
+		btnStop.setBounds(242, 195, 202, 29);
+		frmGmiPlayer.getContentPane().add(btnStop);
 	}
 
 	private Object FileInputStream(String songFile2) {
