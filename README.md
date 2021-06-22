@@ -1,5 +1,5 @@
 # music-player-desktop-application
-create a simple music player from java programming language
+create a simple music player from java programming language that can play and stop their selected  mp3 music files
 
 # What I learn from this project
 
